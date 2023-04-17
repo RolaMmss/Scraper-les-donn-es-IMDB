@@ -1,7 +1,7 @@
 import scrapy
 
-class IMDBSpider(scrapy.Spider):
-    name = 'imdb_spider'
+class SerieSpider(scrapy.Spider):
+    name = 'serie'
     start_urls = ['https://www.imdb.com/chart/toptv/']
 
     def parse(self, response):
