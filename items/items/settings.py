@@ -19,6 +19,16 @@ NEWSPIDER_MODULE = "items.spiders"
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+#######################################
+# to stop the website from blocking me after several requests
+RANDOMIZE_DOWNLOAD_DELAY = True
+DOWNLOAD_DELAY = 1
+CONCURRENT_REQUESTS_PER_DOMAIN = 2
+COOKIES_ENABLED = False
+RETRY_TIMES = 3
+HTTPCACHE_ENABLED = True 
+#######################################
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
