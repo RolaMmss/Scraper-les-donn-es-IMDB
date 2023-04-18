@@ -27,6 +27,12 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 2
 COOKIES_ENABLED = False
 RETRY_TIMES = 3
 HTTPCACHE_ENABLED = True 
+#############
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
+}
+
 #######################################
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
