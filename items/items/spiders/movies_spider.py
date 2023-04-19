@@ -51,8 +51,8 @@ class MoviesCrawlerSpider(CrawlSpider):
         year = movie.xpath('//ul[@class="ipc-inline-list ipc-inline-list--show-dividers sc-afe43def-4 kdXikI baseAlt"]/li[1]/ a /text()').get()
         public = movie.xpath('//ul[@class="ipc-inline-list ipc-inline-list--show-dividers sc-afe43def-4 kdXikI baseAlt"]/li[2]/ a /text()').get()
         actors = movie.xpath('//div[@class="ipc-avatar ipc-avatar--base ipc-avatar--dynamic-width"] /a/@aria-label').getall()
-        # country = movie.xpath('/html/body/div[2]/main/div/section[1]/div/section/div/div[1]/section[12]/div[2]/ul/li[2]/div/ul/li/a').get()
-        # language = movie.xpath('/html/body/div[2]/main/div/section[1]/div/section/div/div[1]/section[12]/div[2]/ul/li[4]/div/ul/li/a').get()
+        country = movie.xpath('(//ul[@class="ipc-metadata-list ipc-metadata-list--dividers-all ipc-metadata-list--base"]//li[@class="ipc-metadata-list__item"]//div[@class="ipc-metadata-list-item__content-container"])[1]//text()').get()
+        language = movie.xpath('(//ul[@class="ipc-metadata-list ipc-metadata-list--dividers-all ipc-metadata-list--base"]//li[@class="ipc-metadata-list__item"]//div[@class="ipc-metadata-list-item__content-container"])[3]//text()').get()
         yield {
             'title': title,
             # 'original_title': original_title,
@@ -63,8 +63,8 @@ class MoviesCrawlerSpider(CrawlSpider):
             'description': description,
             'actors': actors,
             'public': public,
-            # 'country': country,
-            # 'language': language
+            'country': country,
+            'language': language
         }
         next_page = movie.css('.lister-page-next a::attr(href)').get()
         if next_page:
