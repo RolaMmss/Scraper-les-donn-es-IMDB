@@ -46,9 +46,8 @@ class MoviesCrawlerSpider(CrawlSpider):
         score = movie.xpath('//span[@class="sc-bde20123-1 iZlgcd"]//text()').get()
         genre = movie.xpath('//a[@class="ipc-chip ipc-chip--on-baseAlt"]//text()').get()
         year = movie.xpath('//ul[@class="ipc-inline-list ipc-inline-list--show-dividers sc-afe43def-4 kdXikI baseAlt"]//li[1]').get()
-        # duration = movie.xpath('//ul[@class="ipc-inline-list ipc-inline-list--show-dividers sc-afe43def-4 kdXikI baseAlt"]//li[3]').get()
-        # description = movie.xpath('//p[@class="sc-5f699a2-3 lopbTB"]').get()
-        
+        duration = movie.xpath('//ul[@class="ipc-inline-list ipc-inline-list--show-dividers sc-afe43def-4 kdXikI baseAlt"]//li[3]//text()').get()
+        description = movie.xpath('//p[@class="sc-5f699a2-3 lopbTB"]//text()').get()
         year = movie.xpath('//ul[@class="ipc-inline-list ipc-inline-list--show-dividers sc-afe43def-4 kdXikI baseAlt"]/li[1]/ a /text()').get()
         public = movie.xpath('//ul[@class="ipc-inline-list ipc-inline-list--show-dividers sc-afe43def-4 kdXikI baseAlt"]/li[2]/ a /text()').get()
         actors = movie.xpath('//div[@class="ipc-avatar ipc-avatar--base ipc-avatar--dynamic-width"] /a/@aria-label').getall()
@@ -60,8 +59,8 @@ class MoviesCrawlerSpider(CrawlSpider):
             'score': score,
             'genre': genre,
             'year': year,
-            # 'duration': duration,
-            # 'description': description,
+            'duration': duration,
+            'description': description,
             'actors': actors,
             'public': public,
             # 'country': country,
