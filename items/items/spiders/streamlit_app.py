@@ -3,6 +3,7 @@ from pymongo import MongoClient
 import streamlit as st
 from dotenv import load_dotenv
 import os
+# import pandas as pd
 
 load_dotenv()
 
@@ -63,10 +64,10 @@ results_rating = collection.find({"rating": selected_rating})
 def rechercher_par_duree(duree_max):
     resultats = collection.find({"duree": {"$lt": duree_max}})
     return resultats
-# def rechercher_par_note(note_min):
-#     resultats = collection.find({"note": {"$gte": note_min}})
-#     return resultats
-# st.title("Recherche de films")
+# # def rechercher_par_note(note_min):
+# #     resultats = collection.find({"note": {"$gte": note_min}})
+# #     return resultats
+# # st.title("Recherche de films")
 
 # Recherche par durée
 duree_max = st.sidebar.slider("Maximum duration(minutes)", min_value=0, max_value=300, step=30)
@@ -84,8 +85,8 @@ for resultat in resultats_duree:
 #########################################################
 
 # effectuer une requête sur la base de données pour trouver les films correspondants
+# if nom_title is not None:
 resultats_title = collection.find({"title": {"$regex": nom_title, "$options": "i"}})
-
 # afficher les résultats de recherche
 for resultat in resultats_title:
     st.write(f"Titre: {resultat['title']}")
@@ -96,20 +97,55 @@ for resultat in resultats_title:
     # st.image(resultat['miniature'])
     # st.write(f"Lien vers la bande annonce: {resultat['lien_youtube']}")
 #########################################################
-# effectuer une requête sur la base de données pour trouver les films correspondants
-resultats_actor = collection.find({"actor": {"$regex": nom_actor, "$options": "i"}})
+# # effectuer une requête sur la base de données pour trouver les films correspondants
+# resultats_actor = collection.find({"actor": {"$regex": nom_actor, "$options": "i"}})
 
-# afficher les résultats de recherche
-for resultat in resultats_actor:
-    st.write(f"Titre: {resultat['title']}")
-    st.write(f"Acteurs: {resultat['actors']}")
-    st.write(f"Genre: {resultat['genre']}")
-    st.write(f"Durée: {resultat['duration']}")
-    st.write(f"Note: {resultat['score']}")
-    # st.image(resultat['miniature'])
+# # afficher les résultats de recherche
+# for resultat in resultats_actor:
+#     st.write(f"Titre: {resultat['title']}")
+#     st.write(f"Acteurs: {resultat['actors']}")
+#     st.write(f"Genre: {resultat['genre']}")
+#     st.write(f"Durée: {resultat['duration']}")
+#     st.write(f"Note: {resultat['score']}")
+#     # st.image(resultat['miniature'])
     # st.write(f"Lien vers la bande annonce: {resultat['lien_youtube']}")
-#########################################################################################################
+#     #########################################################
+# # effectuer une requête sur la base de données pour trouver les films correspondants
+# resultats_genre = collection.find({"genre": {"$regex": genre_selectionne, "$options": "i"}})
 
+# # afficher les résultats de recherche
+# for resultat in resultats_genre:
+#     st.write(f"Titre: {resultat['title']}")
+#     st.write(f"Acteurs: {resultat['actors']}")
+#     st.write(f"Genre: {resultat['genre']}")
+#     st.write(f"Durée: {resultat['duration']}")
+#     st.write(f"Note: {resultat['score']}")
+#     # st.image(resultat['miniature'])
+#     # st.write(f"Lien vers la bande annonce: {resultat['lien_youtube']}")
+# #########################################################################################################
+# # effectuer une requête sur la base de données pour trouver les films correspondants
+# resultats_score = collection.find({"score": {"$regex": selected_rating, "$options": "i"}})
+
+# # afficher les résultats de recherche
+# for resultat in resultats_score:
+#     st.write(f"Titre: {resultat['title']}")
+#     st.write(f"Acteurs: {resultat['actors']}")
+#     st.write(f"Genre: {resultat['genre']}")
+#     st.write(f"Durée: {resultat['duration']}")
+#     st.write(f"Note: {resultat['score']}")
+#     # st.image(resultat['miniature'])
+#     # st.write(f"Lien vers la bande annonce: {resultat['lien_youtube']}")
+# #########################################################################################################
+# Recherche par acteurs
+# # actors = st.multiselect("Acteurs", collection.distinct("actors"))
+# actors = st.sidebar.text_input("Actors name")
+
+# if actors:
+#     # results = search_by_actors(actors)
+#     results = collection.find({"actors": {"$in": actors}})
+#     df = pd.DataFrame(results)
+#     st.dataframe(df)
+######################################################################
 # # 1. Quel est le film le plus long ?
 st.title('Longest movie')
 dict_duration = {}
@@ -200,50 +236,64 @@ french_percentage = french_count
 st.write(f"{french_percentage:.2f}% of the top 100 movies are French.")
 ###################################################################
 
-# 6. Quel est la durée moyenne d’un film en fonction du genre ?
-st.title("What is the average duration of a movie based on its genre?")
+# # 6. Quel est la durée moyenne d’un film en fonction du genre ?
+# st.title("What is the average duration of a movie based on its genre?")
 
-# # aggregate movies by genre and calculate average duration for each genre
-# pipeline = [
-#     {"$group": {"_id": "$genre", "avg_duration": {"$avg": "$duration"}}}
-# ]
+# # # aggregate movies by genre and calculate average duration for each genre
+# # pipeline = [
+# #     {"$group": {"_id": "$genre", "avg_duration": {"$avg": "$duration"}}}
+# # ]
 
-# result = db.movies.aggregate(pipeline)
+# # result = db.movies.aggregate(pipeline)
 
-# # print the result
-# for genre in result:
-#     st.write(f"The average duration of a movie in the {genre['_id']} genre is {genre['avg_duration']} minutes.")
+# # # print the result
+# # for genre in result:
+# #     st.write(f"The average duration of a movie in the {genre['_id']} genre is {genre['avg_duration']} minutes.")
 
-# aggregate the data to find the average duration of a film by genre
-# pipeline = [
-#     {
-#         "$group": {
-#             "_id": "$genre",
-#             "avg_duration": { "$avg": { "$sum": [ { "$multiply": [ { "$toInt": { "$arrayElemAt": [ { "$split": ["$duration", "h "] }, 0 ] } }, 60 ] }, { "$toInt": { "$arrayElemAt": [ { "$split": ["$duration", "h "] }, 1 ] } } ] } }
-#         }
-#     }
-# ]
+# # aggregate the data to find the average duration of a film by genre
+# # pipeline = [
+# #     {
+# #         "$group": {
+# #             "_id": "$genre",
+# #             "avg_duration": { "$avg": { "$sum": [ { "$multiply": [ { "$toInt": { "$arrayElemAt": [ { "$split": ["$duration", "h "] }, 0 ] } }, 60 ] }, { "$toInt": { "$arrayElemAt": [ { "$split": ["$duration", "h "] }, 1 ] } } ] } }
+# #         }
+# #     }
+# # ]
 
-# result = db.films.aggregate(pipeline)
+# # result = db.films.aggregate(pipeline)
 
-# # print the average duration of a film by genre
-# if duration is not None:
-#     for doc in result:
-#         st.write(f"The average duration of a film in the '{doc['_id']}' genre is {doc['avg_duration']} minutes.")
+# # # print the average duration of a film by genre
+# # if duration is not None:
+# #     for doc in result:
+# #         st.write(f"The average duration of a film in the '{doc['_id']}' genre is {doc['avg_duration']} minutes.")
 
 
-def tranform_to_minutes(duration):
-    if duration is not None:
-        if len(duration.split()) == 2:
-            x = int(duration.split()[0][0]) * 60 + int(duration.split()[1][0 : len(duration.split()[1])-1])
-        elif duration.split()[0][-1] == 'h':
-            x = int(duration.split('h')[0]) * 60
-        elif duration.split()[0][-1] == 'm':
-            x = int(duration.split('m')[0])
-    return x
+# def tranform_to_minutes(duration):
+#     if duration is not None:
+#         if len(duration.split()) == 2:
+#             x = int(duration.split()[0][0]) * 60 + int(duration.split()[1][0 : len(duration.split()[1])-1])
+#         elif duration.split()[0][-1] == 'h':
+#             x = int(duration.split('h')[0]) * 60
+#         elif duration.split()[0][-1] == 'm':
+#             x = int(duration.split('m')[0])
+#     return x
+# # # effectuer l'opération de groupement
+# # pipeline = [
+# #     {"$group": {"_id": "$genre", "duree_moyenne": {"$avg": "$duration"}}}
+# # ]
+
+# # resultats = list(collection.aggregate(pipeline))
+
+# # # afficher les résultats
+# # for resultat in resultats:
+# #     st.write(f"Genre : {resultat['_id']}, Durée moyenne : {resultat['duree_moyenne']}")
+
+
+
 # # effectuer l'opération de groupement
 # pipeline = [
-#     {"$group": {"_id": "$genre", "duree_moyenne": {"$avg": "$duration"}}}
+#     {"$addFields": {"duration_minutes": {"$function": {"body": f"{tranform_to_minutes}", "args": ["$duration"], "lang": "js"}}}},
+#     {"$group": {"_id": "$genre", "duree_moyenne": {"$avg": "$duration_minutes"}}}
 # ]
 
 # resultats = list(collection.aggregate(pipeline))
@@ -251,19 +301,5 @@ def tranform_to_minutes(duration):
 # # afficher les résultats
 # for resultat in resultats:
 #     st.write(f"Genre : {resultat['_id']}, Durée moyenne : {resultat['duree_moyenne']}")
-
-
-
-# effectuer l'opération de groupement
-pipeline = [
-    {"$addFields": {"duration_minutes": {"$function": {"body": f"{tranform_to_minutes}", "args": ["$duration"], "lang": "js"}}}},
-    {"$group": {"_id": "$genre", "duree_moyenne": {"$avg": "$duration_minutes"}}}
-]
-
-resultats = list(collection.aggregate(pipeline))
-
-# afficher les résultats
-for resultat in resultats:
-    st.write(f"Genre : {resultat['_id']}, Durée moyenne : {resultat['duree_moyenne']}")
 
 
