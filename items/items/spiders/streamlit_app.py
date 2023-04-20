@@ -45,22 +45,6 @@ selected_rating = st.sidebar.selectbox("Rating", ratings)
 # Query database for films with selected rating
 results_rating = collection.find({"rating": selected_rating})
 ###################################################
-# # Define Streamlit app
-# def app():
-#     # Get user input for duration threshold
-#     max_duration = st.slider("Select maximum duration (minutes)", min_value=0, max_value=300, step=5)
-
-#     # Query MongoDB for films with duration less than max_duration
-#     pipeline = [
-#         {"$match": {"duration": {"$lt": max_duration}}},
-#         {"$project": {"_id": 0, "title": 1, "duration": 1}}
-#     ]
-#     results = collection.aggregate(pipeline)
-
-#     # Display results
-#     st.write(f"Films with duration less than {max_duration} minutes:")
-#     for film in results:
-#         st.write(f"- {film['title']} ({film['duration']} minutes)")
 def rechercher_par_duree(duree_max):
     resultats = collection.find({"duree": {"$lt": duree_max}})
     return resultats
@@ -160,11 +144,7 @@ for document in collection.find():
         elif duration.split()[0][-1] == 'm':
             x = int(duration.split('m')[0])
         dict_duration[x] = title
-    # st.write(x,title)
-    # st.write(dict_duration)
 st.write(f"The longest movie is {dict_duration[list(dict(sorted(dict_duration.items())).keys())[-1]]} with a duration of {list(dict(sorted(dict_duration.items())).keys())[-1]} minutes.")
-    
-
 ##########################################################
 # 2. Quels sont les 5 films les mieux notés ?
 
@@ -192,19 +172,19 @@ st.write("Tom Cruise has acted in", tom_cruise_movies, "movies.")
 #########################################################
 # 4. Quels sont les 3 meilleurs films d’horreur ? Dramatique ? Comique ?
 # query for the top 3 horror movies based on rating
-horror_movies = collection.find({"genre": "Horror"}).sort("rating", pymongo.DESCENDING).limit(3)
+horror_movies = collection.find({"genre": "Horror"}).sort("score", pymongo.DESCENDING).limit(3)
 st.title("Top 3 Horror Movies:")
 for movie in horror_movies:
     st.write(movie["title"])
 
 # query for the top 3 drama movies based on rating
-drama_movies = collection.find({"genre": "Drama"}).sort("rating", pymongo.DESCENDING).limit(3)
+drama_movies = collection.find({"genre": "Drama"}).sort("score", pymongo.DESCENDING).limit(3)
 st.title("Top 3 Drama Movies:")
 for movie in drama_movies:
     st.write(movie["title"])
 
 # query for the top 3 comedy movies based on rating
-comedy_movies = collection.find({"genre": "Comedy"}).sort("rating", pymongo.DESCENDING).limit(3)
+comedy_movies = collection.find({"genre": "Comedy"}).sort("score", pymongo.DESCENDING).limit(3)
 st.title("Top 3 Comedy Movies:")
 for movie in comedy_movies:
     st.write(movie["title"])
@@ -212,7 +192,7 @@ for movie in comedy_movies:
 # 5. Parmi les 100 films les mieux notés, quel pourcentage sont américains ? Français ?
 # trouver les 100 films les mieux notés
 st.title("What percentage of the top 100 rated films are American? French?")
-top_rated = collection.find().sort("rating", -1).limit(100)# st.write(top_films)
+top_rated = collection.find().sort("score", -1).limit(100)# st.write(top_films)
 # count the number of American movies in the top 100
 american_count = 0
 for movie in top_rated:
