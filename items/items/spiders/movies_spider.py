@@ -15,30 +15,11 @@ class MoviesCrawlerSpider(CrawlSpider):
             yield scrapy.Request(url='https://www.imdb.com/chart/top/?ref_=nv_mv_250', headers={
                 'User-Agent': self.user_agent
             })
-    # def start_requests(self):
-    #         url = 'https://www.imdb.com/chart/top/'
-    #         headers = {
-    #             'User-Agent': self.settings.get('USER_AGENT')
-    #         }
-    #         yield scrapy.Request(url, headers=headers, callback=self.parse_item)
-            
+   
     movie_details = LinkExtractor(restrict_xpaths='//div[@class="lister"]//table//td[@class="titleColumn"]//a')
     rule_movie_details = Rule(movie_details, callback='parse_item', follow=False)
     rules = (rule_movie_details, )
-        # Extract links matching 'category.php' (but not matching 'subsection.php')
-        # and follow links from them (since no callback means follow=True by default).
-      
-    #     Rule(LinkExtractor(
-    #         # allow=('category\.php', ), 
-    #         # deny=('subsection\.php', ), 
-    #         restrict_xpath=('//div[@class="lister"]//table//td[@class="titleColumn"]//a')),
-    #         callback='parse_item', 
-    #         follow=False),
-
-    #     # # Extract links matching 'item.php' and parse them with the spider's method parse_item
-    #     # Rule(LinkExtractor(allow=('item\.php', )), callback='parse_item'),
-    # )
-
+    
     
     def parse_item(self, movie):
         title = movie.xpath('//h1//span//text()').get()
