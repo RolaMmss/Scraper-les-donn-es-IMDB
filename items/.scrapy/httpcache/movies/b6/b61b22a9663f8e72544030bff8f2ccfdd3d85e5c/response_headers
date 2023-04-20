@@ -1,0 +1,11 @@
+Content-Type: text/html
+Server: Server
+Date: Mon, 17 Apr 2023 12:48:46 GMT
+X-Amz-Rid: 1BFFAAMGD1W59TKFWRP5
+Strict-Transport-Security: max-age=47474747; includeSubDomains; preload
+Vary: Content-Type,Accept-Encoding,User-Agent
+X-Cache: Error from cloudfront
+Via: 1.1 f28457772363c6ae92d5862984c7c69c.cloudfront.net (CloudFront)
+X-Amz-Cf-Pop: CDG50-P4
+Alt-Svc: h3=":443"; ma=86400
+X-Amz-Cf-Id: MgBXHz1pp9NlEOjIORfjnKzV4AtQvko0nWbwAq-DUUNkBJy82-eGUg==

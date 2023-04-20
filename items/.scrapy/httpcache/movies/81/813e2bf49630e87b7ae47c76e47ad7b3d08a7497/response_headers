@@ -1,0 +1,20 @@
+Content-Type: text/html; charset=utf-8
+Server: Server
+Date: Mon, 17 Apr 2023 12:52:51 GMT
+X-Amz-Rid: KSSN0S0VGZ8M5R8TCPXJ
+Set-Cookie: session-id=135-7446764-7739547; Domain=.imdb.com; Expires=Tue, 01 Jan 2036 08:00:01 GMT; Path=/
+Set-Cookie: session-id-time=2082787201l; Domain=.imdb.com; Expires=Tue, 01 Jan 2036 08:00:01 GMT; Path=/
+Set-Cookie: next-sid=3NrBFlqPiBgaaXMl3-TcD; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly
+Content-Security-Policy: frame-ancestors 'self' imdb.com *.imdb.com *.media-imdb.com withoutabox.com *.withoutabox.com amazon.com *.amazon.com amazon.co.uk *.amazon.co.uk amazon.de *.amazon.de translate.google.com images.google.com www.google.com www.google.co.uk search.aol.com bing.com www.bing.com
+X-Frame-Options: SAMEORIGIN
+X-Xss-Protection: 1; mode=block
+Etag: "mqnbu7mmilkv4c"
+Cache-Control: private, no-cache, no-store, max-age=0, must-revalidate
+Content-Encoding: gzip
+Vary: Accept-Encoding,Content-Type,Accept-Encoding,User-Agent
+Strict-Transport-Security: max-age=47474747; includeSubDomains; preload
+X-Cache: Miss from cloudfront
+Via: 1.1 c0d1c71355dba844bcbee0b54705b9fc.cloudfront.net (CloudFront)
+X-Amz-Cf-Pop: CDG50-P4
+Alt-Svc: h3=":443"; ma=86400
+X-Amz-Cf-Id: 8J1SWpK7o7E7oyU4LEMhXWcLn3L2NBv9kbWEF9UM3xopcDNerP1taA==
